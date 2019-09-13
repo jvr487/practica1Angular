@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Place } from '../domain/Place';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,27 @@ export class PlacesService {
     );
   }
   
+  getById(id: string): Observable<Place>{
+    if(this.cache){
+      const place = this.cache.find(p => p._id === id);
+      if(place){
+        return of(place);
+      }
+    }
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: this.getBasicAuth(this.user, this.password)
+      }
+    };
+
+    const urlGetById = this.urlBase + '/' + encodeURIComponent(id);
+
+    this.http.get(urlGetById, options).pipe(
+      map(p => p as Place)
+    )
+  }
   // codifica a base 64
   getBasicAuth(user: string, password: string): string {
     return 'Basic ' + btoa(user + ':' + password);

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PlacesService } from 'src/app/services/places.service';
 import { Subscription } from 'rxjs';
+import { Place } from 'src/app/domain/Place';
 
 @Component({
   selector: 'app-list-place',
