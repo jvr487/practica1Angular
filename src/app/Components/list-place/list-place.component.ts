@@ -1,41 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { PlacesService } from 'src/app/services/places.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list-place',
   templateUrl: './list-place.component.html',
   styleUrls: ['./list-place.component.scss']
 })
-export class ListPlaceComponent implements OnInit {
+export class ListPlaceComponent implements OnInit, OnDestroy {
 places:Place[] = null
+private sub: Subscription;
 
-  constructor() { }
+  constructor(private _placeServices: PlacesService) { }
 
   ngOnInit() {
-    this.places = this.getPlaces()
+     this.getPlaces()
   }
 
-  getPlaces(): Place[]{
-    return [
-      {
-        name : "Juan1.1",
-        address:"1",
-        zipCode:11,
-        city:"111"
-      },
-      
-      {
-        name : "Juan2",
-        address:"2",
-        zipCode:22,
-        city:"222"
-      },
-      
-      {
-        name : "Juan3",
-        address:"3",
-        zipCode:33,
-        city:"333"
-      }
-    ]
+  getPlaces() {
+    this.sub = this._placeServices.getAll().subscribe(
+      data => {this.places = data},
+      error => {console.log('Error al conectar con el sericio de obtener todos los lugares: ' + error.message)}
+    )
+  }
+
+  // Para desuscribirnos 
+  ngOnDestroy(){
+    if(this.sub)
+    {
+      this.sub.unsubscribe();
+      this.sub = null;
+    }
   }
 }
