@@ -1,4 +1,4 @@
-interface IPlace{
+interface Place{
     name:string
     city:string
     address:string

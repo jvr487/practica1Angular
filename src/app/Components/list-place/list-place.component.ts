@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list-place.component.scss']
 })
 export class ListPlaceComponent implements OnInit {
-places:IPlace[] = null
+places:Place[] = null
 
   constructor() { }
 
@@ -14,10 +14,10 @@ places:IPlace[] = null
     this.places = this.getPlaces()
   }
 
-  getPlaces(): IPlace[]{
+  getPlaces(): Place[]{
     return [
       {
-        name : "Juan1",
+        name : "Juan1.1",
         address:"1",
         zipCode:11,
         city:"111"
