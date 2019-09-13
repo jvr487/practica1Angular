@@ -9,7 +9,8 @@ import { Place } from 'src/app/domain/Place';
   styleUrls: ['./list-place.component.scss']
 })
 export class ListPlaceComponent implements OnInit, OnDestroy {
-places:Place[] = null
+places: Place[] = null;
+
 private sub: Subscription;
 
   constructor(private _placeServices: PlacesService) { }
@@ -20,15 +21,14 @@ private sub: Subscription;
 
   getPlaces() {
     this.sub = this._placeServices.getAll().subscribe(
-      data => {this.places = data},
+      data => {this.places = data; },
       error => {console.log('Error al conectar con el sericio de obtener todos los lugares: ' + error.message)}
     )
   }
 
-  // Para desuscribirnos 
+  // Para desuscribirnos
   ngOnDestroy(){
-    if(this.sub)
-    {
+    if (this.sub) {
       this.sub.unsubscribe();
       this.sub = null;
     }

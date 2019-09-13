@@ -10,6 +10,8 @@ import { Place } from 'src/app/domain/Place';
 })
 export class PlaceDetailComponent implements OnInit {
 
+  place: Place = null;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -19,10 +21,13 @@ export class PlaceDetailComponent implements OnInit {
     const placeId = this.route.snapshot.paramMap.get('id');
     if (placeId) {
       this.placeService.getById(placeId).subscribe(
-        data => data as Place,
+        data => { this.place = data as Place; },
         error => console.log('error: ' + error)
       );
     }
+  }
+  regresar(){
+    this.router.navigate(['/place-list']);
   }
 
 }

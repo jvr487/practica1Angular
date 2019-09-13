@@ -1,4 +1,4 @@
-export interface Place{
+export interface Place {
   _id: string;
   name: string;
   address: string;
@@ -11,7 +11,7 @@ export interface Place{
   __v: number;
   }
 
-  export interface GeoPoint {
+export interface GeoPoint {
     coordinates: number[];
     type: 'Point';
 }

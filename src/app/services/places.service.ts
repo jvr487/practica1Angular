@@ -8,13 +8,13 @@ import { Place } from '../domain/Place';
   providedIn: 'root'
 })
 export class PlacesService {
-  
+
   urlBase = 'https://openapi3.herokuapp.com/api/places';
   user = 'demo';
   password = 'demo';
 
   cache: Place[] = null;
-  
+
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<Place[]>{
@@ -40,11 +40,11 @@ export class PlacesService {
     return this.http.get(this.urlBase, options).pipe(
       map(p => {
         this.cache = p as Place[];
-        return this.cache}
+        return this.cache; }
         )
     );
   }
-  
+
   getById(id: string): Observable<Place>{
     if(this.cache){
       const place = this.cache.find(p => p._id === id);
